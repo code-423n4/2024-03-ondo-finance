@@ -1,67 +1,10 @@
-# ✨ So you want to run an audit
-
-This `README.md` contains a set of checklists for our audit collaboration.
-
-Your audit will use two repos: 
-- **an _audit_ repo** (this one), which is used for scoping your audit and for providing information to wardens
-- **a _findings_ repo**, where issues are submitted (shared with you after the audit) 
-
-Ultimately, when we launch the audit, this repo will be made public and will contain the smart contracts to be reviewed and all the information needed for audit participants. The findings repo will be made public after the audit report is published and your team has mitigated the identified issues.
-
-Some of the checklists in this doc are for **C4 (🐺)** and some of them are for **you as the audit sponsor (⭐️)**.
-
----
-
-# Audit setup
-
-## 🐺 C4: Set up repos
-- [ ] Create a new private repo named `YYYY-MM-sponsorname` using this repo as a template.
-- [ ] Rename this repo to reflect audit date (if applicable)
-- [ ] Rename audit H1 below
-- [ ] Update pot sizes
-  - [ ] Remove the "Bot race findings opt out" section if there's no bot race.
-- [ ] Fill in start and end times in audit bullets below
-- [ ] Add link to submission form in audit details below
-- [ ] Add the information from the scoping form to the "Scoping Details" section at the bottom of this readme.
-- [ ] Add matching info to the Code4rena site
-- [ ] Add sponsor to this private repo with 'maintain' level access.
-- [ ] Send the sponsor contact the url for this repo to follow the instructions below and add contracts here. 
-- [ ] Delete this checklist.
-
-# Repo setup
-
-## ⭐️ Sponsor: Add code to this repo
-
-- [ ] Create a PR to this repo with the below changes:
-- [ ] Confirm that this repo is a self-contained repository with working commands that will build (at least) all in-scope contracts, and commands that will run tests producing gas reports for the relevant contracts.
-- [ ] Please have final versions of contracts and documentation added/updated in this repo **no less than 48 business hours prior to audit start time.**
-- [ ] Be prepared for a 🚨code freeze🚨 for the duration of the audit — important because it establishes a level playing field. We want to ensure everyone's looking at the same code, no matter when they look during the audit. (Note: this includes your own repo, since a PR can leak alpha to our wardens!)
-
-## ⭐️ Sponsor: Repo checklist
-
-- [ ] Modify the [Overview](#overview) section of this `README.md` file. Describe how your code is supposed to work with links to any relevent documentation and any other criteria/details that the auditors should keep in mind when reviewing. (Here are two well-constructed examples: [Ajna Protocol](https://github.com/code-423n4/2023-05-ajna) and [Maia DAO Ecosystem](https://github.com/code-423n4/2023-05-maia))
-- [ ] Review the Gas award pool amount, if applicable. This can be adjusted up or down, based on your preference - just flag it for Code4rena staff so we can update the pool totals across all comms channels.
-- [ ] Optional: pre-record a high-level overview of your protocol (not just specific smart contract functions). This saves wardens a lot of time wading through documentation.
-- [ ] [This checklist in Notion](https://code4rena.notion.site/Key-info-for-Code4rena-sponsors-f60764c4c4574bbf8e7a6dbd72cc49b4#0cafa01e6201462e9f78677a39e09746) provides some best practices for Code4rena audit repos.
-
-## ⭐️ Sponsor: Final touches
-- [ ] Review and confirm the pull request created by the Scout (technical reviewer) who was assigned to your contest. *Note: any files not listed as "in scope" will be considered out of scope for the purposes of judging, even if the file will be part of the deployed contracts.*
-- [ ] Check that images and other files used in this README have been uploaded to the repo as a file and then linked in the README using absolute path (e.g. `https://github.com/code-423n4/yourrepo-url/filepath.png`)
-- [ ] Ensure that *all* links and image/file paths in this README use absolute paths, not relative paths
-- [ ] Check that all README information is in markdown format (HTML does not render on Code4rena.com)
-- [ ] Delete this checklist and all text above the line below when you're ready.
-
----
 
 # Ondo Finance audit details
-- Total Prize Pool: $36500 in USDC
-  - HM awards: $28800 in USDC
-  - (remove this line if there is no Analysis pool) Analysis awards: XXX XXX USDC (Notion: Analysis pool)
-  - QA awards: $1200 in USDC
-  - (remove this line if there is no Bot race) Bot Race awards: XXX XXX USDC (Notion: Bot Race pool)
- 
+- Total Prize Pool: $36,500 in USDC
+  - HM awards: $28,800 in USDC
+  - QA awards: $1,200 in USDC
   - Judge awards: $3600 in USDC
-  - Lookout awards: XXX XXX USDC (Notion: Sum of Pre-sort fee + Pre-sort early bonus)
+  - Lookout awards: $2,400 in USDC
   - Scout awards: $500 in USDC
  
 - Join [C4 Discord](https://discord.gg/code4rena) to register
@@ -78,8 +21,213 @@ The 4naly3er report can be found [here](https://github.com/code-423n4/2024-03-on
 
 _Note for C4 wardens: Anything included in this `Automated Findings / Publicly Known Issues` section is considered a publicly known issue and is ineligible for awards._
 
+Price/Rebasing Arbitrage Risk - We are aware that KYC’d users (using MEV or not) can purchase OUSG or rOUSG before a price increase and then sell OUSG or rOUSG after, resulting in a profit in the form of USDC. This will be mitigated in the short term through off chain agreements with KYC’d investors, mint and redeem fees, and global rate limits.
+
+OUSG Price - The OUSG price tracks an off chain portfolio of cash equivalents and treasury bills, price changes are heavily constrained in the OUSG Oracle, which uses the change in the price of SHV to set the allowable OUSG price in between updates. We are aware that the SHV price could differ from the OUSG portfolio, so any findings related to this price discrepancy is out of scope. Also, scenarios where the OUSG price increases by many orders of magnitudes are not realistic and consequently not considered valid.
+
+Price Decreases - We are aware that an extreme change in the price of SHV could prevent Ondo Finance from accurately reporting the OUSG price in its oracle. We are also aware that the code does not prevent a “negative rebase” in the event that the OUSG price goes down.
+
+DDOS-ing OUSGInstantManager Rate limiter - We are aware that KYC’d investors can DDOS the instant mint/redeem contract.
+
+Centralization Risk - we are aware that our management functions and contract upgradeability results in a centralized system.
+
+KYCRegistry.sol (Signature replay attack) - https://code4rena.com/reports/2023-01-ondo#m-04-kycregistry-is-susceptible-to-signature-replay-attack is out of scope.
+
+Sanction or KYC related edge cases - specifically when a user’s `KYCRegistry` or Sanction status changes in between different actions, leaving them at risk of their funds being locked. If someone gets sanctioned on the Chainalysis Sanctions Oracle or removed from Ondo Finance’s KYC Registry their funds are locked.
+
+Malicious Admin/Operator - we are aware that admins have the ability to call various unrestrained setters, rOUSG burns, a retrieve Tokens function, and a multicall function. We would be open to suggestions on ways we can further restrain the setters without decreasing operational overhead, convenience, or flexibility of the code. The permissioned multicall function on OUSGInstantManager will only be used to transfer non-ERC20 assets out of the contract if the assets are accidentally deposited. Other permissioned usages of the multicall function resulting in problems are not valid.
+
+Third party integrations - The BUIDL token and existing BUIDL redeemer contract are not explicitly included and can be assumed to be “correct” for the sake of this audit.  However, if one can find flaws in the integration or even discover a path for a user (KYC’d or not) to cause a loss of funds for the protocol, it would be valid. At this time the BUIDL redeemer contract is not verified on Etherscan nor public, and its interface is inferred from existing on chain history associated with the BUIDL token.
+
+Rebasing Precision Issue - rOUSG is a rebasing tokens and some precision can be lost when wrapping and unwrapping. We expect this to only result in extremely small precision discrepancies. However, if one can find a realistic usage of the contracts that results in a non-trivial amount of imprecision, it would be valid.
+
+Note: Invalid code paths will be weighted more heavily if they are publicly accessible versus if they are only accessible via a permissioned address.
+
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
 # Overview
 
 [ ⭐️ SPONSORS: add info here ]
 
-## 🐺 C4: Begin Gist paste here (and delete this line)
+## Links
+
+- **Previous audits:**  
+  - ✅ SCOUTS: If there are multiple report links, please format them in a list.
+- **Documentation:** https://docs.ondo.finance/category/ousg/introducing-instant-24-7-365-subscriptions-and-redemptions-shifting-ousg-funds-into-blackrocks-buidl/
+- **Website:** https://ondo.finance/
+- **X/Twitter:** https://twitter.com/OndoFinance
+
+---
+
+# Scope
+
+[ ✅ SCOUTS: add scoping and technical details here ]
+
+### Files in scope
+- ✅ This should be completed using the `metrics.md` file
+- ✅ Last row of the table should be Total: SLOC
+- ✅ SCOUTS: Have the sponsor review and and confirm in text the details in the section titled "Scoping Q amp; A"
+
+*For sponsors that don't use the scoping tool: list all files in scope in the table below (along with hyperlinks) -- and feel free to add notes to emphasize areas of focus.*
+
+| Contract | SLOC | Purpose | Libraries used |  
+| ----------- | ----------- | ----------- | ----------- |
+| [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+
+### Files out of scope
+✅ SCOUTS: List files/directories out of scope
+
+## Scoping Q &amp; A
+
+### General questions
+### Are there any ERC20's in scope?: Yes
+
+✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
+
+BUIDL, USDC, OUSG, rOUSG
+
+### Are there any ERC777's in scope?: No
+
+✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
+
+
+
+### Are there any ERC721's in scope?: No
+
+✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
+
+
+
+### Are there any ERC1155's in scope?: No
+
+✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
+
+
+
+✅ SCOUTS: Once done populating the table below, please remove all the Q/A data above.
+
+| Question                                | Answer                       |
+| --------------------------------------- | ---------------------------- |
+| ERC20 used by the protocol              |       🖊️             |
+| Test coverage                           | ✅ SCOUTS: Please populate this after running the test coverage command                          |
+| ERC721 used  by the protocol            |            🖊️              |
+| ERC777 used by the protocol             |           🖊️                |
+| ERC1155 used by the protocol            |              🖊️            |
+| Chains the protocol will be deployed on | Ethereum |
+
+### ERC20 token behaviors in scope
+
+| Question                                                                                                                                                   | Answer |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| [Missing return values](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#missing-return-values)                                                      |   No  |
+| [Fee on transfer](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#fee-on-transfer)                                                                  |  No  |
+| [Balance changes outside of transfers](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#balance-modifications-outside-of-transfers-rebasingairdrops) | Yes    |
+| [Upgradeability](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#upgradable-tokens)                                                                 |   No  |
+| [Flash minting](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#flash-mintable-tokens)                                                              | Yes    |
+| [Pausability](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#pausable-tokens)                                                                      | Yes    |
+| [Approval race protections](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#approval-race-protections)                                              | Yes    |
+| [Revert on approval to zero address](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-approval-to-zero-address)                            | Yes    |
+| [Revert on zero value approvals](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-zero-value-approvals)                                    | Yes    |
+| [Revert on zero value transfers](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-zero-value-transfers)                                    | Yes    |
+| [Revert on transfer to the zero address](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-transfer-to-the-zero-address)                    | Yes    |
+| [Revert on large approvals and/or transfers](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-large-approvals--transfers)                  | Yes    |
+| [Doesn't revert on failure](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#no-revert-on-failure)                                                   |  Yes   |
+| [Multiple token addresses](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-zero-value-transfers)                                          | Yes    |
+| [Low decimals ( < 6)](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#low-decimals)                                                                 |   Yes  |
+| [High decimals ( > 18)](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#high-decimals)                                                              | Yes    |
+| [Blocklists](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#tokens-with-blocklists)                                                                | No    |
+
+### External integrations (e.g., Uniswap) behavior in scope:
+
+
+| Question                                                  | Answer |
+| --------------------------------------------------------- | ------ |
+| Enabling/disabling fees (e.g. Blur disables/enables fees) | No   |
+| Pausability (e.g. Uniswap pool gets paused)               |  No   |
+| Upgradeability (e.g. Uniswap gets upgraded)               |   No  |
+
+
+### EIP compliance checklist
+We strive to keep rOUSG as ERC20 compliant as possible. 
+
+✅ SCOUTS: Please format the response above 👆 using the template below👇
+
+| Question                                | Answer                       |
+| --------------------------------------- | ---------------------------- |
+| src/Token.sol                           | ERC20, ERC721                |
+| src/NFT.sol                             | ERC721                       |
+
+
+# Additional context
+
+## Main invariants
+
+OUSG & rOUSG can not be instant minted . 
+BUIDL and USDC can not be transferred to arbitrary addresses. 
+USDC is not permanently locked. 
+
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
+## Attack ideas (where to focus for bugs)
+A loss of funds for Ondo Finance, its token holders, or any other third parties that we integrate with. 
+
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
+## All trusted roles in the protocol
+
+The full list of roles can be compiled by viewing the various contracts in the system. 
+OUSG.sol
+rOUSG.sol
+KYCRegistry.sol
+OUSGInstantManager.sol
+
+
+✅ SCOUTS: Please format the response above 👆 using the template below👇
+
+| Role                                | Description                       |
+| --------------------------------------- | ---------------------------- |
+| Owner                          | Has superpowers                |
+| Administrator                             | Can change fees                       |
+
+## Describe any novel or unique curve logic or mathematical models implemented in the contracts:
+
+N/A
+
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
+## Running tests
+
+ Install Node >= 16
+- Run `yarn install`
+- Install forge
+- Copy `.env.example` to a new file `.env` in the root directory of the repo. Set `FORK_FROM_BLOCK_NUMBER` value to 19505904. Fill in a dummy menmonic and add an RPC URL to populate `MAINNET_RPC_URL`
+- Run `yarn init-repo`
+- Run `npm run test-forge --mc <your test contract name>
+
+
+
+✅ SCOUTS: Please format the response above 👆 using the template below👇
+
+```bash
+git clone https://github.com/code-423n4/2023-08-arbitrum
+git submodule update --init --recursive
+cd governance
+foundryup
+make install
+make build
+make sc-election-test
+```
+To run code coverage
+```bash
+make coverage
+```
+To run gas benchmarks
+```bash
+make gas
+```
+
+✅ SCOUTS: Add a screenshot of your terminal showing the gas report
+✅ SCOUTS: Add a screenshot of your terminal showing the test coverage
+
+## Miscellaneous
+Employees of Ondo Finance and employees' family members are ineligible to participate in this audit.
