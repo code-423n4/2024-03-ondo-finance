@@ -5,7 +5,7 @@
 | Function Name                        | min             | avg    | median | max    | # calls |
 | DEFAULT_ADMIN_ROLE                   | 240             | 240    | 240    | 240    | 1       |
 | PRICE_UPDATE_ROLE                    | 262             | 262    | 262    | 262    | 3       |
-| addPrice                             | 24081           | 124156 | 109663 | 160927 | 1497    |
+| addPrice                             | 24081           | 124155 | 109663 | 160927 | 1497    |
 | currentPriceId                       | 341             | 1341   | 1341   | 2341   | 4       |
 | getLatestPrice                       | 550             | 2547   | 2550   | 4550   | 1546    |
 | getPrice                             | 526             | 2524   | 2526   | 2526   | 2855    |
@@ -23,7 +23,7 @@
 | Function Name                                            | min             | avg    | median | max    | # calls |
 | ADD_PRICE_OPS_ROLE                                       | 241             | 241    | 241    | 241    | 20      |
 | PRICE_UPDATE_ROLE                                        | 262             | 262    | 262    | 262    | 2       |
-| addPrice                                                 | 24126           | 109434 | 109708 | 109720 | 533     |
+| addPrice                                                 | 24126           | 109435 | 109708 | 109720 | 533     |
 | addPriceOps                                              | 32235           | 51222  | 34535  | 120169 | 6       |
 | currentPriceId                                           | 2364            | 2364   | 2364   | 2364   | 2       |
 | deletePrice                                              | 26052           | 36032  | 28738  | 53308  | 3       |
@@ -51,21 +51,21 @@
 | LIST_CONFIGURER_ROLE                    | 1090            | 6897   | 7590   | 7678   | 9       |
 | MINTER_ROLE                             | 1023            | 1075   | 1101   | 7523   | 499     |
 | OMMF_MANAGER_ROLE                       | 7666            | 7666   | 7666   | 7666   | 1       |
-| OUSG_TO_ROUSG_SHARES_MULTIPLIER         | 1101            | 1101   | 1101   | 1101   | 178     |
-| PAUSER_ROLE                             | 1089            | 1377   | 1100   | 7600   | 187     |
+| OUSG_TO_ROUSG_SHARES_MULTIPLIER         | 1101            | 1101   | 1101   | 1101   | 182     |
+| PAUSER_ROLE                             | 1089            | 1372   | 1100   | 7600   | 191     |
 | USDY_MANAGER_ROLE                       | 7634            | 7634   | 7634   | 7634   | 2       |
 | WOMMF_MANAGER_ROLE                      | 1024            | 3190   | 1024   | 7524   | 3       |
 | admin                                   | 23701           | 23701  | 23701  | 23701  | 1       |
 | adminBurn                               | 36012           | 65716  | 61978  | 120866 | 11      |
 | allowance                               | 1593            | 1762   | 1682   | 10093  | 521     |
 | allowlist                               | 1222            | 4070   | 1244   | 9744   | 3       |
-| approve                                 | 31504           | 54701  | 55579  | 55958  | 4800    |
-| balanceOf                               | 1381            | 1929   | 1913   | 13166  | 13777   |
+| approve                                 | 31504           | 54680  | 54630  | 55958  | 4800    |
+| balanceOf                               | 1381            | 1930   | 1913   | 13166  | 13781   |
 | blocklist                               | 1176            | 1220   | 1220   | 1265   | 2       |
 | burn(address,uint256)                   | 33918           | 107854 | 117283 | 166001 | 6       |
 | burn(uint256)                           | 35700           | 51603  | 53945  | 67431  | 5       |
-| burnFrom                                | 31551           | 68558  | 65113  | 76591  | 774     |
-| decimals                                | 7518            | 7557   | 7540   | 7628   | 635     |
+| burnFrom                                | 31551           | 68551  | 65113  | 76591  | 774     |
+| decimals                                | 7518            | 7557   | 7540   | 7628   | 639     |
 | decreaseAllowance                       | 31528           | 36311  | 38702  | 38779  | 5       |
 | depositedCash                           | 1146            | 1193   | 1146   | 9646   | 8260    |
 | getBalanceOfByShares                    | 1648            | 6908   | 12148  | 12148  | 1032    |
@@ -79,15 +79,15 @@
 | getSharesByRUSDY                        | 2190            | 2190   | 2190   | 2190   | 512     |
 | getTotalShares                          | 1231            | 1231   | 1231   | 1231   | 5386    |
 | getwOMMFByOMMF                          | 3227            | 3227   | 3227   | 3227   | 516     |
-| grantRole                               | 108260          | 115349 | 108632 | 125540 | 1142    |
-| handleOracleReport                      | 33322           | 39556  | 39643  | 56647  | 2576    |
+| grantRole                               | 108260          | 115325 | 108632 | 125540 | 1146    |
+| handleOracleReport                      | 33322           | 39532  | 39643  | 56647  | 2576    |
 | hasRole                                 | 3577            | 3577   | 3577   | 3577   | 5       |
 | implementation                          | 25703           | 25703  | 25703  | 25703  | 1       |
 | increaseAllowance                       | 33824           | 45655  | 47276  | 55854  | 6       |
 | kycRegistry                             | 1221            | 1732   | 1244   | 3221   | 4       |
 | kycRequirementGroup                     | 1190            | 1707   | 1224   | 3190   | 4       |
-| mint                                    | 31758           | 122924 | 127754 | 127958 | 6120    |
-| name                                    | 1357            | 1564   | 1357   | 10608  | 183     |
+| mint                                    | 31758           | 122923 | 127754 | 127958 | 6120    |
+| name                                    | 1357            | 1560   | 1357   | 10608  | 187     |
 | ommf                                    | 9721            | 9721   | 9721   | 9721   | 1       |
 | oracle                                  | 1178            | 3324   | 1188   | 9744   | 4       |
 | pause                                   | 31087           | 54405  | 54364  | 60543  | 39      |
@@ -101,12 +101,12 @@
 | setOracle                               | 36333           | 49838  | 53502  | 60854  | 314     |
 | setSanctionsList                        | 37793           | 49362  | 49410  | 60835  | 4       |
 | sharesOf                                | 1490            | 1493   | 1490   | 10023  | 8734    |
-| symbol                                  | 1344            | 1552   | 1344   | 10606  | 183     |
+| symbol                                  | 1344            | 1547   | 1344   | 10606  | 187     |
 | totalSupply                             | 1144            | 1444   | 1144   | 17231  | 7255    |
 | transfer                                | 31566           | 111445 | 117019 | 117031 | 291     |
 | transferFrom                            | 31828           | 62993  | 59582  | 101094 | 26      |
 | unpause                                 | 31109           | 42542  | 32486  | 60565  | 11      |
-| unwrap                                  | 31138           | 132208 | 125262 | 159167 | 538     |
+| unwrap                                  | 31138           | 131871 | 125262 | 159167 | 538     |
 | upgradeTo                               | 29073           | 29073  | 29073  | 29073  | 1       |
 | wrap                                    | 31172           | 177602 | 182184 | 194660 | 1354    |
 
@@ -167,7 +167,7 @@
 | Function Name                                                                      | min             | avg  | median | max  | # calls |
 | getProxyAdmin                                                                      | 1609            | 1609 | 1609   | 1609 | 1       |
 | getProxyImplementation                                                             | 8046            | 8046 | 8046   | 8046 | 1       |
-| owner                                                                              | 386             | 387  | 386    | 2386 | 1327    |
+| owner                                                                              | 386             | 387  | 386    | 2386 | 1331    |
 
 
 | contracts/kyc/KYCRegistry.sol:KYCRegistry contract |                 |       |        |       |         |
@@ -233,7 +233,7 @@
 | redemptionRequestCounter                            | 352             | 352    | 352    | 352    | 557     |
 | requestRedemption                                   | 28762           | 125180 | 125277 | 125289 | 1074    |
 | requestRedemptionServicedOffchain                   | 29352           | 47310  | 31406  | 81172  | 3       |
-| requestRedemption_wOMMF                             | 206153          | 206195 | 206163 | 210303 | 258     |
+| requestRedemption_wOMMF                             | 206144          | 206195 | 206163 | 210303 | 258     |
 | requestSubscription                                 | 28837           | 140277 | 143624 | 143648 | 1592    |
 | resetInstantMintDuration                            | 352             | 1352   | 1352   | 2352   | 2       |
 | resetInstantRedemptionDuration                      | 441             | 1441   | 1441   | 2441   | 2       |
@@ -293,10 +293,10 @@
 | PAUSER_ROLE                                      | 294             | 294    | 294    | 294    | 2       |
 | adminBurn                                        | 7256            | 32788  | 39854  | 47436  | 10      |
 | allowance                                        | 803             | 803    | 803    | 803    | 1       |
-| approve                                          | 2738            | 26428  | 26881  | 26881  | 2652    |
+| approve                                          | 2738            | 26391  | 26881  | 26881  | 2652    |
 | balanceOf                                        | 759             | 1132   | 1115   | 2759   | 8495    |
 | burn                                             | 7113            | 15280  | 15060  | 38860  | 263     |
-| burnFrom                                         | 2785            | 52430  | 52545  | 52545  | 1857    |
+| burnFrom                                         | 2785            | 52399  | 52545  | 52545  | 1857    |
 | decimals                                         | 245             | 245    | 245    | 245    | 244     |
 | decreaseAllowance                                | 2762            | 5905   | 5004   | 9949   | 3       |
 | depositedCash                                    | 351             | 362    | 351    | 2351   | 8260    |
@@ -321,7 +321,7 @@
 | sharesOf                                         | 692             | 692    | 692    | 692    | 8211    |
 | symbol                                           | 631             | 631    | 631    | 631    | 244     |
 | totalSupply                                      | 349             | 349    | 349    | 349    | 5392    |
-| transfer                                         | 4875            | 47601  | 48210  | 61210  | 528     |
+| transfer                                         | 4875            | 47166  | 48210  | 61210  | 528     |
 | transferFrom                                     | 2932            | 45499  | 40268  | 75577  | 787     |
 | unpause                                          | 8963            | 20566  | 20566  | 32169  | 2       |
 
@@ -362,7 +362,7 @@
 | transfer                                            | 2818            | 34893  | 34956  | 34956  | 517     |
 | transferFrom                                        | 62319           | 62319  | 62319  | 62319  | 258     |
 | unpause                                             | 8930            | 20533  | 20533  | 32136  | 2       |
-| unwrap                                              | 19818           | 80962  | 64205  | 99005  | 516     |
+| unwrap                                              | 19818           | 80517  | 64205  | 99005  | 516     |
 | wrap                                                | 19751           | 115766 | 103228 | 140828 | 779     |
 
 
@@ -377,11 +377,11 @@
 | contracts/ousg/ousgInstantManager.sol:OUSGInstantManager contract |                 |        |        |        |         |
 |-------------------------------------------------------------------|-----------------|--------|--------|--------|---------|
 | Deployment Cost                                                   | Deployment Size |        |        |        |         |
-| 3898329                                                           | 19422           |        |        |        |         |
+| 4104234                                                           | 20304           |        |        |        |         |
 | Function Name                                                     | min             | avg    | median | max    | # calls |
 | CONFIGURER_ROLE                                                   | 329             | 329    | 329    | 329    | 9       |
 | DEFAULT_ADMIN_ROLE                                                | 318             | 318    | 318    | 318    | 6       |
-| FEE_GRANULARITY                                                   | 318             | 318    | 318    | 318    | 1       |
+| FEE_GRANULARITY                                                   | 296             | 296    | 296    | 296    | 1       |
 | MINIMUM_OUSG_PRICE                                                | 253             | 253    | 253    | 253    | 1       |
 | OUSG_TO_ROUSG_SHARES_MULTIPLIER                                   | 252             | 252    | 252    | 252    | 2       |
 | PAUSER_ROLE                                                       | 317             | 317    | 317    | 317    | 3       |
@@ -398,34 +398,35 @@
 | instantRedemptionLimit                                            | 2353            | 2353   | 2353   | 2353   | 1       |
 | lastResetInstantMintTime                                          | 2353            | 2353   | 2353   | 2353   | 1       |
 | lastResetInstantRedemptionTime                                    | 2374            | 2374   | 2374   | 2374   | 1       |
+| minBUIDLRedeemAmount                                              | 2418            | 2418   | 2418   | 2418   | 2       |
 | minimumDepositAmount                                              | 2398            | 2398   | 2398   | 2398   | 2       |
 | minimumRedemptionAmount                                           | 2373            | 2373   | 2373   | 2373   | 5       |
-| mint                                                              | 28838           | 110518 | 76765  | 217314 | 7       |
+| mint                                                              | 28838           | 111654 | 78754  | 219303 | 7       |
 | mintFee                                                           | 2397            | 2397   | 2397   | 2397   | 1       |
 | mintPaused                                                        | 2399            | 2399   | 2399   | 2399   | 1       |
-| mintRebasingOUSG                                                  | 308434          | 331410 | 337503 | 348295 | 3       |
+| mintRebasingOUSG                                                  | 310423          | 333399 | 339492 | 350284 | 3       |
 | oracle                                                            | 2404            | 2404   | 2404   | 2404   | 1       |
-| ousg                                                              | 283             | 283    | 283    | 283    | 1       |
-| pauseMint                                                         | 46523           | 49841  | 49841  | 53160  | 2       |
+| ousg                                                              | 349             | 349    | 349    | 349    | 1       |
+| pauseMint                                                         | 46590           | 49908  | 49908  | 53227  | 2       |
 | pauseRedeem                                                       | 46546           | 49864  | 49864  | 53183  | 2       |
-| redeem                                                            | 28903           | 248836 | 148074 | 468722 | 7       |
+| redeem                                                            | 28881           | 258419 | 197182 | 478179 | 11      |
 | redeemFee                                                         | 2352            | 2352   | 2352   | 2352   | 1       |
 | redeemPaused                                                      | 388             | 388    | 388    | 388    | 1       |
-| redeemRebasingOUSG                                                | 63860           | 361499 | 493458 | 521344 | 5       |
+| redeemRebasingOUSG                                                | 63838           | 371562 | 502915 | 539317 | 5       |
 | resetInstantMintDuration                                          | 2352            | 2352   | 2352   | 2352   | 1       |
 | resetInstantRedemptionDuration                                    | 2375            | 2375   | 2375   | 2375   | 1       |
 | retrieveTokens                                                    | 54227           | 122060 | 122060 | 189894 | 2       |
 | rousg                                                             | 329             | 329    | 329    | 329    | 1       |
 | setFeeReceiver                                                    | 53503           | 53503  | 53503  | 53503  | 1       |
-| setInstantMintLimit                                               | 30070           | 46767  | 47182  | 53514  | 26      |
+| setInstantMintLimit                                               | 30070           | 46822  | 47182  | 53514  | 30      |
 | setInstantMintLimitDuration                                       | 53514           | 53514  | 53514  | 53514  | 1       |
-| setInstantRedemptionLimit                                         | 30069           | 46766  | 47181  | 53513  | 26      |
+| setInstantRedemptionLimit                                         | 30069           | 46821  | 47181  | 53513  | 30      |
 | setInstantRedemptionLimitDuration                                 | 53472           | 53472  | 53472  | 53472  | 1       |
 | setMinimumDepositAmount                                           | 53493           | 53493  | 53493  | 53493  | 1       |
 | setMinimumRedemptionAmount                                        | 53516           | 53516  | 53516  | 53516  | 1       |
 | setMintFee                                                        | 47443           | 49435  | 47443  | 53421  | 3       |
 | setOracle                                                         | 53527           | 53527  | 53527  | 53527  | 1       |
-| setRedeemFee                                                      | 47489           | 49481  | 47489  | 53467  | 3       |
+| setRedeemFee                                                      | 47467           | 49459  | 47467  | 53445  | 3       |
 | unpauseMint                                                       | 53228           | 53228  | 53228  | 53228  | 1       |
 | unpauseRedeem                                                     | 53227           | 53227  | 53227  | 53227  | 1       |
 | usdc                                                              | 350             | 350    | 350    | 350    | 1       |
@@ -439,9 +440,9 @@
 | Function Name                                       | min             | avg    | median | max    | # calls |
 | MANAGER_ADMIN                                       | 320             | 320    | 320    | 320    | 13      |
 | PAUSER_ADMIN                                        | 341             | 341    | 341    | 341    | 7       |
-| PRICE_ID_SETTER_ROLE                                | 361             | 361    | 361    | 361    | 180     |
+| PRICE_ID_SETTER_ROLE                                | 361             | 361    | 361    | 361    | 184     |
 | REDEMPTION_PROVER_ROLE                              | 263             | 263    | 263    | 263    | 77      |
-| RELAYER_ROLE                                        | 329             | 329    | 329    | 329    | 179     |
+| RELAYER_ROLE                                        | 329             | 329    | 329    | 329    | 183     |
 | addProof                                            | 34628           | 66758  | 71924  | 89718  | 6       |
 | addRedemptionProof                                  | 42908           | 83352  | 54464  | 139783 | 7       |
 | assetSender                                         | 425             | 1092   | 425    | 2425   | 1543    |
@@ -449,7 +450,7 @@
 | claimRedemption                                     | 29044           | 103008 | 103152 | 103449 | 515     |
 | depositIdToDepositor                                | 844             | 855    | 844    | 6844   | 1075    |
 | feeRecipient                                        | 427             | 1427   | 1427   | 2427   | 2       |
-| grantRole                                           | 101046          | 117994 | 118146 | 118158 | 436     |
+| grantRole                                           | 101046          | 117996 | 118146 | 118158 | 444     |
 | minimumDepositAmount                                | 364             | 2360   | 2364   | 2364   | 513     |
 | minimumRedemptionAmount                             | 428             | 428    | 428    | 428    | 1       |
 | mintFee                                             | 408             | 408    | 408    | 408    | 1       |
@@ -474,7 +475,7 @@
 | setOffChainRedemptionMinimum                        | 30268           | 41827  | 41827  | 53387  | 2       |
 | setPriceIdForDeposits                               | 38552           | 62253  | 62357  | 62369  | 519     |
 | setPriceIdForRedemptions                            | 38079           | 59913  | 60007  | 60379  | 519     |
-| setPricer                                           | 30383           | 47646  | 47711  | 53471  | 180     |
+| setPricer                                           | 30383           | 47648  | 47711  | 53471  | 184     |
 | setRedemptionFee                                    | 47374           | 50376  | 50376  | 53379  | 2       |
 | subscriptionRequestCounter                          | 409             | 409    | 409    | 409    | 300     |
 | unpauseOffChainRedemption                           | 24973           | 39072  | 39072  | 53171  | 2       |
@@ -489,21 +490,21 @@
 | Function Name                           | min             | avg    | median | max    | # calls |
 | CONFIGURER_ROLE                         | 295             | 295    | 295    | 295    | 4       |
 | DEFAULT_ADMIN_ROLE                      | 306             | 306    | 306    | 306    | 4       |
-| OUSG_TO_ROUSG_SHARES_MULTIPLIER         | 306             | 306    | 306    | 306    | 178     |
-| PAUSER_ROLE                             | 305             | 305    | 305    | 305    | 183     |
+| OUSG_TO_ROUSG_SHARES_MULTIPLIER         | 306             | 306    | 306    | 306    | 182     |
+| PAUSER_ROLE                             | 305             | 305    | 305    | 305    | 187     |
 | allowance                               | 792             | 2042   | 2792   | 2792   | 8       |
 | approve                                 | 26826           | 26826  | 26826  | 26826  | 19      |
-| balanceOf                               | 1868            | 2497   | 1868   | 5868   | 89      |
-| decimals                                | 333             | 333    | 333    | 333    | 178     |
+| balanceOf                               | 1868            | 2556   | 1868   | 5868   | 93      |
+| decimals                                | 333             | 333    | 333    | 333    | 182     |
 | decreaseAllowance                       | 10026           | 10026  | 10026  | 10026  | 2       |
 | getROUSGByShares                        | 1662            | 1662   | 1662   | 1662   | 3       |
 | getSharesByROUSG                        | 1643            | 1643   | 1643   | 1643   | 4       |
-| grantRole                               | 79402           | 79402  | 79402  | 79402  | 186     |
+| grantRole                               | 79402           | 79402  | 79402  | 79402  | 190     |
 | increaseAllowance                       | 9946            | 9946   | 9946   | 9946   | 1       |
-| initialize                              | 482695          | 482695 | 482695 | 482695 | 178     |
+| initialize                              | 482695          | 482695 | 482695 | 482695 | 182     |
 | kycRegistry                             | 449             | 449    | 449    | 449    | 2       |
 | kycRequirementGroup                     | 429             | 429    | 429    | 429    | 2       |
-| name                                    | 556             | 556    | 556    | 556    | 179     |
+| name                                    | 556             | 556    | 556    | 556    | 183     |
 | oracle                                  | 383             | 383    | 383    | 383    | 2       |
 | pause                                   | 25987           | 26540  | 25987  | 32070  | 11      |
 | paused                                  | 338             | 338    | 338    | 338    | 5       |
@@ -511,7 +512,7 @@
 | setKYCRequirementGroup                  | 9112            | 13730  | 9112   | 32202  | 5       |
 | setOracle                               | 9565            | 17148  | 9565   | 32315  | 3       |
 | sharesOf                                | 725             | 1725   | 1725   | 2725   | 4       |
-| symbol                                  | 543             | 543    | 543    | 543    | 179     |
+| symbol                                  | 543             | 543    | 543    | 543    | 183     |
 | totalSupply                             | 1666            | 3600   | 3666   | 3666   | 61      |
 | transfer                                | 8269            | 41829  | 38223  | 64523  | 15      |
 | transferFrom                            | 2877            | 39437  | 32187  | 72159  | 19      |
@@ -525,7 +526,7 @@
 | Deployment Cost                                       | Deployment Size |         |         |         |         |
 | 4158486                                               | 19229           |         |         |         |         |
 | Function Name                                         | min             | avg     | median  | max     | # calls |
-| deployRebasingOUSG                                    | 3460392         | 3460392 | 3460392 | 3460392 | 178     |
+| deployRebasingOUSG                                    | 3460392         | 3460392 | 3460392 | 3460392 | 182     |
 
 
 | contracts/rwaOracles/RWADynamicOracle.sol:RWADynamicOracle contract |                 |        |        |        |         |
@@ -579,7 +580,7 @@
 | getRoleMemberCount                                                      | 2537            | 2537  | 2537   | 2537  | 2       |
 | priceTimestamp                                                          | 384             | 384   | 384    | 384   | 3       |
 | rwaPrice                                                                | 384             | 393   | 384    | 2384  | 51205   |
-| setPrice                                                                | 23916           | 36187 | 36195  | 53422 | 25611   |
+| setPrice                                                                | 23916           | 36188 | 36195  | 53422 | 25611   |
 
 
 | contracts/test/RWAOracleTestOnly.sol:RWAOracleTestOnly contract |                 |       |        |       |         |
@@ -819,9 +820,9 @@
 | 165662                                                               | 467             |       |        |       |         |
 | Function Name                                                        | min             | avg   | median | max   | # calls |
 | getPrice                                                             | 269             | 734   | 269    | 2269  | 6717    |
-| getPriceData                                                         | 438             | 1675  | 2438   | 2438  | 454     |
-| setOwner                                                             | 26886           | 26886 | 26886  | 26886 | 178     |
-| setPrice                                                             | 21648           | 30678 | 26544  | 43632 | 1522    |
+| getPriceData                                                         | 438             | 1678  | 2438   | 2438  | 466     |
+| setOwner                                                             | 26886           | 26886 | 26886  | 26886 | 182     |
+| setPrice                                                             | 21648           | 30712 | 26544  | 43632 | 1530    |
 
 
 | forge-tests/helpers/MockChainlinkPriceOracle.sol:MockChainlinkPriceOracle contract |                 |       |        |        |         |
