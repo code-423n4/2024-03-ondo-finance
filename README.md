@@ -81,8 +81,6 @@ Ondo Finance will be responsible for ensuring enough BUIDL is in the contract at
 
 ### Files in scope
 
-[ ⭐️ SPONSORS: please fill in the last 2 columns here ]
-
 
 | File                                   | Logic Contracts | Interfaces | SLOC | Purpose | Libraries used |
 |----------------------------------------|-----------------|------------|------|---------|----------------|
