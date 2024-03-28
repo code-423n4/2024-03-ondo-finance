@@ -108,7 +108,10 @@ contract Test_OUSGInstant_redeem_ETH is OUSG_BasicDeployment, BUIDLHelper {
     vm.stopPrank();
   }
 
-  function test_instant_redeem__fail_too_small() public {
+  function test_instant_redeem__fail_too_small()
+    public
+    setupSecuritize(1_000_000e6, 1_000_000e6)
+  {
     deal(address(ousg), alice, 100_000e18);
     assertEq(ousgInstantManager.minimumRedemptionAmount(), 50_000e6);
 

@@ -94,6 +94,10 @@ interface IOUSGInstantManager {
     uint256 _minimumRedemptionAmount
   ) external;
 
+  function setMinimumBUIDLRedemptionAmount(
+    uint256 _minimumBUIDLRedemptionAmount
+  ) external;
+
   function setOracle(address _oracle) external;
 
   function setFeeReceiver(address _feeReceiver) external;
@@ -189,6 +193,37 @@ interface IOUSGInstantManager {
   );
 
   /**
+   * @notice Event emitted for when a user performs a redemption of less than
+   *         the minimum BUIDL redemption amount as required by BUIDL and MORE
+   *         than the existing amount of USDC in the contract
+   *
+   * @param sender              Address of the transaction's message sender
+   * @param buidlAmountRedeemed Amount of BUIDL that was redeemed
+   * @param usdcAmountKept      Portion of USDC that was kept in the contract and
+   *                            not sent back to the user
+   */
+  event MinimumBUIDLRedemption(
+    address indexed sender,
+    uint256 buidlAmountRedeemed,
+    uint256 usdcAmountKept
+  );
+
+  /**
+   * @notice Event emitted for when a user performs a redemption of less than
+   *         the minimum BUIDL redemption amount as required by BUIDL and LESS
+   *         than the existing amount of USDC in the contract
+   *
+   * @param sender              Address of the transaction's message sender
+   * @param usdcAmountRedeemed  Amount of USDC sent back to the user
+   * @param usdcAmountRemaining Amount of USDC remaining in the contract
+   */
+  event BUIDLRedemptionSkipped(
+    address indexed sender,
+    uint256 usdcAmountRedeemed,
+    uint256 usdcAmountRemaining
+  );
+
+  /**
    * @notice Event emitted when mint functionality is paused
    */
   event MintPaused();
@@ -248,6 +283,17 @@ interface IOUSGInstantManager {
   event MinimumRedemptionAmountSet(
     uint256 oldMinRedemptionAmount,
     uint256 newMinRedemptionAmount
+  );
+
+  /**
+   * @notice Event emitted when minimum BUIDL redemption amount is set
+   *
+   * @param oldMinBUIDLRedemptionAmount Old minimum BUIDL minimum redemption amount
+   * @param newMinBUIDLRedemptionAmount New minimum BUIDL minimum redemption amount
+   */
+  event MinimumBUIDLRedemptionAmountSet(
+    uint256 oldMinBUIDLRedemptionAmount,
+    uint256 newMinBUIDLRedemptionAmount
   );
 
   /**
