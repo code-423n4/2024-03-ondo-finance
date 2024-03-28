@@ -50,8 +50,6 @@ Note: Invalid code paths will be weighted more heavily if they are publicly acce
 
 # Scope
 
-[ ✅ SCOUTS: add scoping and technical details here ]
-
 ### Files in scope
 
 [ ⭐️ SPONSORS: please fill in the last 2 columns here ]
@@ -178,7 +176,7 @@ npm run test-forge
 
 To run gas benchmarks
 ```bash
-npm run test-forge --gas-report
+npm run test-forge -- --gas-report
 ```
 
 ✅ SCOUTS: Add a screenshot of your terminal showing the gas report
