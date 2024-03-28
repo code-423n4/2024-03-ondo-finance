@@ -115,6 +115,10 @@ contract OUSGInstantManager is
   // Whether redemptions are paused for this contract
   bool public redeemPaused;
 
+  // The minimum amount of BUIDL that must be redeemed in a single redemption
+  // with the BUIDLRedeemer contract
+  uint256 public minBUIDLRedeemAmount = 250_000e6;
+
   // Optional investor-based rate limiting contract reference
   IInvestorBasedRateLimiter public investorBasedRateLimiter;
 
@@ -392,7 +396,6 @@ contract OUSGInstantManager is
       IERC20Metadata(address(buidl)).decimals() == 6,
       "OUSGInstantManager::_redeem: BUIDL decimals must be 6"
     );
-
     uint256 ousgPrice = getOUSGPrice();
     uint256 usdcAmountToRedeem = _getRedemptionAmount(ousgAmountIn, ousgPrice);
 
@@ -416,22 +419,54 @@ contract OUSGInstantManager is
       "OUSGInstantManager::_redeem: redeem amount can't be zero"
     );
 
-    require(
-      buidl.balanceOf(address(this)) > usdcAmountToRedeem,
-      "OUSGInstantManager::_redeem: Insufficient BUIDL balance"
-    );
-
     ousg.burn(ousgAmountIn);
-    buidl.approve(address(buidlRedeemer), usdcAmountToRedeem);
 
-    buidlRedeemer.redeem(usdcAmountToRedeem);
+    uint256 usdcBalance = usdc.balanceOf(address(this));
+
+    if (usdcAmountToRedeem >= minBUIDLRedeemAmount) {
+      // amount of USDC needed is over minBUIDLRedeemAmount, do a BUIDL redemption
+      // to cover the full amount
+      _redeemBUIDL(usdcAmountToRedeem);
+    } else if (usdcAmountToRedeem > usdcBalance) {
+      // There isn't enough USDC held by this contract to cover the redemption,
+      // so we perform a BUIDL redemption of BUIDL's minimum required amount.
+      // The remaining amount of USDC will be held in the contract for future redemptions.
+      _redeemBUIDL(minBUIDLRedeemAmount);
+      emit MinimumBUIDLRedemption(
+        msg.sender,
+        minBUIDLRedeemAmount,
+        usdcBalance + minBUIDLRedeemAmount - usdcAmountToRedeem
+      );
+    } else {
+      // We have enough USDC sitting in this contract already, so use it
+      // to cover the redemption and fees without redeeming more BUIDL.
+      emit BUIDLRedemptionSkipped(
+        msg.sender,
+        usdcAmountToRedeem,
+        usdcBalance - usdcAmountToRedeem
+      );
+    }
 
     if (usdcFees > 0) {
       usdc.transfer(feeReceiver, usdcFees);
     }
-
     emit RedeemFeesDeducted(msg.sender, feeReceiver, usdcFees, usdcAmountOut);
+
     usdc.transfer(msg.sender, usdcAmountOut);
+  }
+
+  function _redeemBUIDL(uint256 buidlAmountToRedeem) internal {
+    require(
+      buidl.balanceOf(address(this)) >= minBUIDLRedeemAmount,
+      "OUSGInstantManager::_redeemBUIDL: Insufficient BUIDL balance"
+    );
+    uint256 usdcBalanceBefore = usdc.balanceOf(address(this));
+    buidl.approve(address(buidlRedeemer), buidlAmountToRedeem);
+    buidlRedeemer.redeem(buidlAmountToRedeem);
+    require(
+      usdc.balanceOf(address(this)) == usdcBalanceBefore + buidlAmountToRedeem,
+      "OUSGInstantManager::_redeemBUIDL: BUIDL:USDC not 1:1"
+    );
   }
 
   /**
@@ -578,6 +613,22 @@ contract OUSGInstantManager is
   /*//////////////////////////////////////////////////////////////
                     General Configuration
   //////////////////////////////////////////////////////////////*/
+
+  /**
+   * @notice Admin function to set the minimum amount required to redeem BUIDL
+   *
+   * @param _minimumBUIDLRedemptionAmount The minimum amount required to redeem BUIDL
+   */
+  function setMinimumBUIDLRedemptionAmount(
+    uint256 _minimumBUIDLRedemptionAmount
+  ) external override onlyRole(DEFAULT_ADMIN_ROLE) {
+    emit MinimumBUIDLRedemptionAmountSet(
+      minBUIDLRedeemAmount,
+      _minimumBUIDLRedemptionAmount
+    );
+    minBUIDLRedeemAmount = _minimumBUIDLRedemptionAmount;
+  }
+
   /**
    * @notice Admin function to set the oracle address
    *
@@ -604,6 +655,11 @@ contract OUSGInstantManager is
     feeReceiver = _feeReceiver;
   }
 
+  /**
+   * @notice Admin function to set the optional investor-based rate limiter
+   *
+   * @param _investorBasedRateLimiter The address of the investor-based rate limiter contract
+   */
   function setInvestorBasedRateLimiter(
     address _investorBasedRateLimiter
   ) external override onlyRole(DEFAULT_ADMIN_ROLE) {
