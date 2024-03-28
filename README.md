@@ -177,10 +177,14 @@ npm run test-forge
 To run gas benchmarks
 ```bash
 npm run test-forge -- --gas-report
+
+## OR
+
+forge snapshot --fork-url $(grep -w ETHEREUM_RPC_URL .env | cut -d '=' -f2) --fork-block-number $(grep -w FORK_FROM_BLOCK_NUMBER_MAINNET .env | cut -d '=' -f2) --nmc ASSERT_FORK
 ```
 
-✅ SCOUTS: Add a screenshot of your terminal showing the gas report
-✅ SCOUTS: Add a screenshot of your terminal showing the test coverage
+#### Gas report
+See [gas-report.txt](https://github.com/code-423n4/2024-03-ondo-finance/blob/main/gas-report.txt)
 
 ## Miscellaneous
 Employees of Ondo Finance and employees' family members are ineligible to participate in this audit.
