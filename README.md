@@ -41,6 +41,8 @@ Third party integrations - The BUIDL token and existing BUIDL redeemer contract 
 
 Rebasing Precision Issue - rOUSG is a rebasing tokens and some precision can be lost when wrapping and unwrapping. We expect this to only result in extremely small precision discrepancies. However, if one can find a realistic usage of the contracts that results in a non-trivial amount of imprecision, it would be valid.
 
+We are aware that USDC may be leftover and held within OUSGInstantManager when a user performs a redemption that is more than the minimumRedemption amount and less than the minimumBUIDLRedemption amount. We are also aware that this may cause temporary "cash drag" for the overall OUSG portfolio as USDC in the OUSGInstantManager contract does not earn yield.  USDC may be utilized at a later time for servicing redemptions less than the minimumBUIDLRedemption amount OR retrieved through the permissioned retrieveTokens function.
+
 Note: Invalid code paths will be weighted more heavily if they are publicly accessible versus if they are only accessible via a permissioned address.
 
 ✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
