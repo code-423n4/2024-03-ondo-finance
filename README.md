@@ -101,7 +101,7 @@ Anything not listed in the table above
 
 | Question                                | Answer                       |
 | --------------------------------------- | ---------------------------- |
-| Test coverage                           | - |
+| Test coverage                           | 79.8% (217/272 statements) |
 | ERC20 used by the protocol              |       BUIDL, USDC, OUSG, rOUSG             |
 | ERC721 used  by the protocol            |           None              |
 | ERC777 used by the protocol             |           None                |
@@ -206,17 +206,32 @@ yarn init-repo
 npm run test-forge
 ```
 
-To run gas benchmarks
+To run gas benchmarks:
 ```bash
 npm run test-forge -- --gas-report
 
 ## OR
 
+### This only shows gas per test
 forge snapshot --fork-url $(grep -w ETHEREUM_RPC_URL .env | cut -d '=' -f2) --fork-block-number $(grep -w FORK_FROM_BLOCK_NUMBER_MAINNET .env | cut -d '=' -f2) --nmc ASSERT_FORK
 ```
 
+To run coverage:
+```bash
+forge coverage --fork-url $(grep -w ETHEREUM_RPC_URL .env | cut -d '=' -f2) --fork-block-number $(grep -w FORK_FROM_BLOCK_NUMBER_MAINNET .env | cut -d '=' -f2) --nmc ASSERT_FORK
+```
+
+
 #### Gas report
 See [gas-report.txt](https://github.com/code-423n4/2024-03-ondo-finance/blob/main/gas-report.txt)
+
+#### Coverage 
+| File                                  | % Lines           | % Statements      | % Branches       | % Funcs          |
+|---------------------------------------|-------------------|-------------------|------------------|------------------|
+| contracts/ousg/ousgInstantManager.sol | 74.77% (83/111)   | 77.21% (105/136)  | 50.00% (25/50)   | 90.62% (29/32)   |
+| contracts/ousg/rOUSG.sol              | 86.67% (91/105)   | 86.21% (100/116)  | 70.00% (28/40)   | 88.57% (31/35)   |
+| contracts/ousg/rOUSGFactory.sol       | 68.75% (11/16)    | 60.00% (12/20)    | 33.33% (2/6)     | 50.00% (1/2)     |
+
 
 ## Miscellaneous
 Employees of Ondo Finance and employees' family members are ineligible to participate in this audit.
