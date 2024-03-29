@@ -1,5 +1,3 @@
-./contracts/ousg/ousg.sol
 ./contracts/ousg/ousgInstantManager.sol
-./contracts/ousg/ousgManager.sol
 ./contracts/ousg/rOUSG.sol
 ./contracts/ousg/rOUSGFactory.sol
