@@ -110,6 +110,9 @@ Anything not listed in the table above
 
 ### ERC20 token behaviors in scope
 
+- The only tokens in scope are: BUIDL, USDC, OUSG, rOUSG.
+- Vulnerabilities related to these token behaviours are only considered valid if they actually exist in tokens which are used, i.e. BUIDL.
+
 | Question                                                                                                                                                   | Answer |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | [Missing return values](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#missing-return-values)                                                      | ❌ No  |
