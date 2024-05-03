@@ -1,0 +1,964 @@
+==============================================================
+Guild: Code4rena
+Channel: ARCHIVE-Q1-2024 / ondo-mar29
+==============================================================
+
+[03/28/2024 19:57] knownfactc4_29311 (pinned)
+👋 Hello and welcome to the audit channel for the $36,500 in USDC **Ondo Finance** audit!
+
+📆 Audit opens 03/29/2024 20:00 (20:00 UTC) and runs through 04/03/2024 20:00 (20:00 UTC) (5 days).
+
+Please give a warm welcome to the Ondo Finance team, particularly  @cameronclifton, @thomassb1625, and @Kian who will be available for questions either here in the channel or via a PRIVATE thread in the EST and PT timezones.
+
+We'll be posting relevant links, documentation, etc. here, so if you intend to participate in this audit, consider enabling notifications for this channel. 🐺 ⏰
+
+Audit Page: https://code4rena.com/audits/2024-03-ondo-finance
+
+{Reactions}
+🔥 (5) 
+
+[03/28/2024 19:58] knownfactc4_29311
+Previous Audit: https://code4rena.com/reports/2023-09-ondo
+
+
+[03/28/2024 19:58] knownfactc4_29311
+Pinned a message.
+
+
+[03/29/2024 20:02] C4 (pinned)
+**Automated Findings / Publicly Known Issues**
+
+Reminder: all [Automated Findings / Publicly Known Issues](https://github.com/code-423n4/2024-03-ondo-finance#automated-findings--publicly-known-issues) are out of scope and ineligible for awards.
+
+{Embed}
+https://github.com/code-423n4/2024-03-ondo-finance
+GitHub - code-423n4/2024-03-ondo-finance
+Contribute to code-423n4/2024-03-ondo-finance development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/0980a0ba-703f-43a8-9b38-91abf8df84ec-F6E1C
+
+
+[03/29/2024 20:03] itsmetechjay
+Pinned a message.
+
+
+[03/29/2024 20:06] cameronclifton (pinned)
+Hey all, thanks ahead of time for for participating in this audit. As a reminder, @thomassb1625 @Kian and I will be available for questions so don't hesitate to make a private thread with the three of us for the quickest response times. 
+Good luck!
+
+{Reactions}
+👋 (2) 👍 (4) 🕺 
+
+[03/29/2024 20:14] itsmetechjay
+Pinned a message.
+
+
+[03/29/2024 20:17] moeid3
+I'm glad to participate in this audit
+
+
+[03/29/2024 20:23] sweetjimmy_
+the contracts in this audit were included in the previous audit (of 09/23) as well?
+
+
+[03/29/2024 20:25] cameronclifton
+@sweetjimmy_ the files in scope for this audit are new and were not included in the previous audit.
+
+{Reactions}
+🫡 
+
+[03/29/2024 20:26] moeid3
+so reading the previous audit report is not helpful?
+
+
+[03/29/2024 20:28] cameronclifton
+rOUSG and rOUSG factory are very similar to rUSDY and rUSDY factory respectively, which were included in the last audit, so it may be helpful.
+
+{Reactions}
+👍 (4) 
+
+[03/29/2024 20:37] sweetjimmy_
+what does this mean, do we have to check for the issues with "Yes" behaviors or "No" behaviors?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/image-58C58.png
+
+
+[03/29/2024 20:41] xyz7457
+ERC20 token behaviors in scope -> I would think we have to check for the "Yes" behaviors.
+
+{Reactions}
+🫡 
+
+[03/29/2024 20:47] hgq2wnl
+are the tokenized treasuries securing USDY the OUSG tokens themselves, or is USDY secured by different tokenized treasuries? (I may be reading the docs wrong apologies)
+
+
+[03/29/2024 21:23] kee_in
+USDY and OUSG are unrelated to each other. USDY is secured by treasuries held off chain. OUSG is backed by BUIDL, a permissioned token created by Blackrock representing treasuries held offchain
+
+{Reactions}
+👍 🥹 
+
+[03/29/2024 21:23] kee_in
+They're pretty similar 🙂 but have different legal structures. USDY has a blocklist rather than an allowlist and does not have instant mint/redemption. OUSG is restricted to addresses on Ondo's KYCRegistry allowlist contract, but offers instant mint/redemption (via the new OUSGInstantManager contract under review here)
+
+
+[03/29/2024 22:20] Deleted User
+a q , for exanple  ``rOUSGFactory.sol`` has only 2 functions with authorization   ``Guardian``  , what exactly are the vulnerabilities that are important for the team to know ?
+
+
+[03/29/2024 22:59] cameronclifton
+For permissioned functions, you can assume the guardian address is trusted (Controlled by Ondo Finance) and not malicious. I don't know of any existing vulnerabilities for this contract, but please do find if exists!
+
+
+[03/29/2024 23:00] Deleted User
+this is what I asked, what should we as researches  focus to find if 2/2  functions existent in that contract for example are authroized  by a trusted addr  ?
+
+
+[03/29/2024 23:02] cameronclifton
+We would be interested to know if there are bugs inside the logic of any permissioned functions in scope.
+
+
+[03/29/2024 23:03] Deleted User
+so the arguments provided in those functions is out of scope but the intended logic inside the functions has to work 100%
+
+
+[03/29/2024 23:11] cameronclifton
+I wouldn't generally say that arguments for permissioned functions are out of scope, if things can be broken or set in ways that cause unintended consequences it would be interesting to us. (I believe you will have to use your judgement here on what is considered an "unintended consequence" based on the context of the contract)
+
+
+[03/29/2024 23:12] Deleted User
+thanks for the answer
+
+
+[03/30/2024 00:34] tom2o17
+Any reason for explicitly checking the allowance prior to transferFrom invocations?
+
+{Reactions}
+👋 (3) 
+
+[03/30/2024 00:44] cameronclifton
+Welcome!  No reason other than an (arguably) better error message.
+
+{Reactions}
+🔥 
+
+[03/30/2024 07:14] kartik_giri_47538
+Hey @cameronclifton I have a question what is share token, Is OUSG or rOUSG token is share token ?
+
+
+[03/30/2024 11:37] 0xdemonnn
+Create a private thread, pls check. Thanks @cameronclifton@thomassb1625@Kian
+
+
+[03/30/2024 13:18] auditor_79099
+pls give me source code of buidlRedeemer.
+
+
+[03/30/2024 13:55] unusual_byte
+@Auditor @Kian need help locating `checkAndUpdateMintLimit` implimentation
+
+
+[03/30/2024 13:55] thomassb1625
+Unfortunately that is not our code so we do not have access to it yet
+
+
+[03/30/2024 13:56] 0x_shahil_hussain
+check private thread
+
+
+[03/30/2024 14:05] Deleted User
+Address of  ``BUIDL``  token  ?       I can't  find it in the tests
+
+
+[03/30/2024 14:23] tom2o17
+in txn linked in readme
+
+
+[03/30/2024 15:09] sweetjimmy_
+from the contest readme
+
+> If OUSGInstantManager::mintRebasingOUSG(uint256) is called, they code will wrap the OUSG into rOUSG for the user as well.
+
+
+[03/30/2024 15:09] sweetjimmy_
+why is the wrapping of OUSG into rOUSG necessary while minting rOUSG?
+
+
+[03/30/2024 15:16] sweetjimmy_
+thanks a lot for this. it helped me a lot
+
+
+[03/30/2024 15:26] sweetjimmy_
+one of the main invariants: `OUSG & rOUSG can not be instant minted.`
+
+under `# New Code: Introduction to OUSGInstantManager`: "This contract allows for instant mints and instant redemptions of OUSG and rOUSG."
+
+aren't they in stark contrast from each other?
+
+
+[03/30/2024 15:34] cameronclifton
+Yikes.. This is a typo. I believe this was meant to say. "OUSG & rOUSG can't not be infinite minted by a non-permissioned actor"
+
+{Reactions}
+pepehehe 
+
+[03/30/2024 15:35] sweetjimmy_
+thanks! lol
+
+
+[03/30/2024 15:43] cameronclifton
+Also here https://etherscan.io/token/0x7712c34205737192402172409a8f7ccef8aa2aec
+
+
+[03/30/2024 15:44] cameronclifton
+https://github.com/code-423n4/2024-03-ondo-finance/blob/main/contracts/InstantMintTimeBasedRateLimiter.sol#L93
+
+
+[03/30/2024 15:53] sweetjimmy_
+Started a thread.
+
+
+[03/30/2024 15:59] sweetjimmy_
+is anyone able to run the test with all of them passing? I am getting an arithmetic overflow/underflow error with 9 failed and 41 tests passed
+
+
+[03/30/2024 16:26] thomassb1625
+Are you running the tests with a fork? `forge test --fork-url https://gateway.tenderly.co/public/mainnet` works for me
+
+
+[03/30/2024 16:40] sweetjimmy_
+thanks... works now!
+
+{Reactions}
+🕺 
+
+[03/30/2024 16:42] sweetjimmy_
+but still on running `npm run test-forge` as mentioned in the readme, im getting this error:
+
+`' for '--fork-block-number <BLOCK>': invalid digit found in string`
+
+In .env, `FORK_FROM_BLOCK_NUMBER_MAINNET` is set to 19505904 and i've added RPC urls for polygon and eth mainnet.
+
+
+[03/30/2024 16:44] sweetjimmy_
+and since i saw hardhat config file too, i tried running `npx hardhat compile` and it failed too 🥲 (i've ran both `npm i` and `yarn install`)
+
+
+[03/30/2024 17:11] sweetjimmy_
+i didn't get this part, if rOUSG balance of a user is calculated as `shares[account] * ousgPrice` and the share of user1 is 100 and ousg price is 100.505 USD then rOUSG balance of user 1 should be 10050.5, right? (100*100.505)
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/image-5D391.png
+
+
+[03/30/2024 17:29] sweetjimmy_
+@cameronclifton @thomassb1625 how can i create a private thread with you?
+
+
+[03/30/2024 17:30] brivan
+Check the `balanceOf` function for confirmation. Probably when they copied it from `rUSDY` they forgot to update the example
+
+
+[03/30/2024 17:33] sweetjimmy_
+looks the same as explained. i guess they made a mistake in calculating the final balance in the comment. Would be nice if they confirm this
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/image-E0E74.png
+
+
+[03/30/2024 17:46] cameronclifton
+The natspec is incorrect. If you had 1 share, and the OUSG price is 105 USD per OUSG, you would have a balance of 105 rOUSG tokens.
+
+{Reactions}
+👍 
+
+[03/30/2024 17:49] sweetjimmy_
+yeah.. that's more like it
+
+
+[03/30/2024 18:08] thomassb1625
+Yea apologies for the natspec being wrong. As you're not the first to ask about this, I'll just walk through the whole rOUSG flow here for anyone else to reference.
+
+So let’s say `ousgPrice = 100`, and a user wraps 1 OUSG, so 1e18 (as OUSG, rOUSG, and the rOUSG price all have 18 decimals of precision).
+
+This will correspond to `1e18 * OUSG_TO_ROUSG_SHARES_MULTIPLIER = 10_000e18 shares`.
+If we view their balance of rOUSG, it will be `(shares * ousgPrice) / (1e18 * OUSG_TO_OUSG_SHARES_MULTIPLIER) = (10_000e18 * 100e18) / (1e18 * 10_000) = 100e18 rOUSG = 100 rOUSG`.
+
+Now let’s say price increases to 105, now they will have: `(10000e18 * 105e18) / (1e18 * 10000) = 105 rOUSG`.
+
+If a user instead deposited 4 OUSG at first, they’d now have 420 rOUSG. Or, say another user deposits 1 OUSG after the price increase, they would still receive 105 rOUSG. **1 rOUSG is essentially just $1 of OUSG**
+
+{Reactions}
+💯 (2) 👌 (2) ondo 
+
+[03/30/2024 18:19] sweetjimmy_
+wonderful explanation
+
+
+[03/30/2024 18:19] sweetjimmy_
+thanks 🙌
+
+{Reactions}
+🫡 
+
+[03/30/2024 18:19] sweetjimmy_
+1 rOUSG will always be worth $1 right? just like BUIDL
+
+
+[03/30/2024 18:30] cameronclifton
+yep!
+
+
+[03/30/2024 21:49] moeid3
+is `rOUSG` also follow the rules of `KYCRegistry`?
+
+
+[03/30/2024 22:01] thomassb1625
+Yep the KYCRegistry for OUSG and rOUSG will be the same contract
+
+
+[03/30/2024 22:05] moeid3
+and what is this sanctions list and why users must not be on the chainalsysis?
+
+
+[03/30/2024 22:29] thomassb1625
+Addresses that we aren't allowed to interact with as they've been flagged for being some sort of suspicious/malicious entity (ie hackers)
+
+
+[03/31/2024 02:34] brivan
+From publicly known issues:
+> DDOS-ing OUSGInstantManager Rate limiter - We are aware that KYC’d investors can DDOS the instant mint/redeem contract.
+Out of curiosity, how such thing could happen?
+
+
+[03/31/2024 02:46] cameronclifton
+If the mint and redeem limit were both set to 10m (denoted in USDC), someone could mint and redeem 10m worth of OUSG/rOUSG and then no other investors could mint or redeem.
+
+{Reactions}
+thankyou 
+
+[03/31/2024 04:33] guy_in0xnito
+There is also one in redeemrebasing....
+
+
+[03/31/2024 06:18] aamirusmani1552
+on which chains contracts will be deployed?
+
+{Reactions}
+👀 
+
+[03/31/2024 08:40] Deleted User
+mainnet, it is mentioned on contest page
+
+
+[03/31/2024 08:42] aamirusmani1552
+Oh sorry didn't notice it. Thanks
+
+
+[03/31/2024 10:35] kartik_giri_47538
+And which role can sanction the user?
+
+
+[03/31/2024 13:49] ivanfitro
+for what is the token BUIDL? I understand in the redemption it there are not enough USDC, but why you need it?
+
+{Reactions}
+➕ 
+
+[03/31/2024 14:40] brivan
+The contract the protocol uses to invest USDC in. 
+Read the `_redeem` function and you will see that the protocol redeems from BUIDL to cover the necessary redemption.
+Quoting now from docs:
+> Ondo Finance will be responsible for ensuring enough BUIDL is in the contract at all times to satisfy investor redemptions.
+
+
+[03/31/2024 14:41] ivanfitro
+ok perfect thank you!!
+
+
+[03/31/2024 14:44] brivan
+The protocol (`KYCRegistry` contract, out of scope btw) uses  an external contract, known as `Chainalysis`: https://etherscan.io/address/0x40c57923924b5c5c5455c48d93317139addac8fb#code
+
+{Reactions}
+10_10 
+
+[03/31/2024 15:09] kartik_giri_47538
+Thanks
+
+
+[03/31/2024 17:08] aamirusmani1552
+What's the purpose of `investorBasedRateLimiter`?
+
+
+[03/31/2024 17:11] cameronclifton
+It is currently just to allow us to easily add this feature in the future.
+
+
+[03/31/2024 17:19] kartik_giri_47538
+Hey @cameronclifton can you check your DM.
+
+{Reactions}
+👍 
+
+[03/31/2024 17:21] kee_in
+Would be better if you create a new thread for questions @kartik_giri_47538
+
+
+[03/31/2024 17:22] kee_in
+can include multiple of us that way
+
+
+[03/31/2024 17:22] kee_in
+thread button at the top
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/Screenshot_2024-03-31_at_10.22.47_AM-C6DE2.png
+
+
+[03/31/2024 18:02] kartik_giri_47538
+Thanks but @cameronclifton answered my query.
+
+{Reactions}
+👍 
+
+[03/31/2024 18:30] yotov721
+are there other contracts in scope or just typo ?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/image-92BDB.png
+
+
+[03/31/2024 18:30] kee_in
+I believe that's a typo yes
+
+{Reactions}
+✅ (3) 
+
+[04/01/2024 05:49] guy_in0xnito
+Created a pvt thread sir
+
+
+[04/01/2024 06:59] cloudellie (pinned)
+ℹ️  Wardens, the Ondo team has received many questions about token behaviours. To clarify:
+
+- The only tokens in scope are: BUIDL, USDC, OUSG, rOUSG.
+- Vulnerabilities related to these token behaviours are only considered valid if they actually exist in tokens which are used, i.e. BUIDL.
+
+{Reactions}
+👍 
+
+[04/01/2024 06:59] cloudellie
+Pinned a message.
+
+
+[04/01/2024 09:26] nedick007
+Good day to all. Is there some1 else that is having difficulties running the local node ?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/Screenshot_2024-04-01_at_12.20.12-97168.png
+
+
+[04/01/2024 09:48] yotov721
+No bot race for this contest ?
+
+
+[04/01/2024 11:31] asui0944
+no analysis reward for this contest?
+
+
+[04/01/2024 11:43] kaveyjoe
+You're Correct .
+
+
+[04/01/2024 12:21] ivanfitro
+one question, for what is the factory? Because if i understand the contract is only for one use no?
+
+
+[04/01/2024 14:51] tychaios.
+It deploys the token and makes sure to initialize it and give up the ownership
+
+{Reactions}
+👍 
+
+[04/01/2024 17:23] brivan
+That publicly known issues list is a scam 😂 Whenever an attack vector comes to mind, I find it already listed there
+
+{Reactions}
+🥲 (4) 🤣 (2) 💯 
+
+[04/01/2024 18:01] yotov721
+It's a copy of an already audited codebase, so a lot of attack vectors are already fixed
+
+
+[04/01/2024 18:01] asui0944
+where can i find the buildRedeemer contract or its address ?
+
+
+[04/01/2024 18:23] thomassb1625
+Here's an example `redeem` tx called on it:
+https://etherscan.io/tx/0xf723727e0a6e779d20581c19c2c7d78354b24d744ce3acbca23ac6242a054fb4
+
+{Embed}
+https://etherscan.io/tx/0xf723727e0a6e779d20581c19c2c7d78354b24d744ce3acbca23ac6242a054fb4
+Ethereum Transaction Hash (Txhash) Details | Etherscan
+Ethereum (ETH) detailed transaction info for txhash 0xf723727e0a6e779d20581c19c2c7d78354b24d744ce3acbca23ac6242a054fb4. The transaction status, block confirmation, gas fee, Ether (ETH), and token transfer are shown.
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/etherscan-logo-circle-A29B1.jpg
+
+{Reactions}
+👍 
+
+[04/01/2024 21:58] petrodollarponzi
+What oracle is planned to be used in OUSGInstantManager?
+
+
+[04/01/2024 22:15] brivan
+`contracts/rwaOracles/RWAOracleRateCheck`, custom oracle that is controlled by ondo team.
+
+
+[04/01/2024 23:17] petrodollarponzi
+For rOUSG too ?
+
+
+[04/02/2024 00:14] brivan
+Both `rOUSG` and `OUSGInstantManager` use the oracle to retrieve the ousg price. So, yes both use the controlled oracle.
+
+
+[04/02/2024 08:11] pkqs90
+what does 2nd invariant: buidl and usdc can't be transferred to arbitrary address mean? does it mean ousg and rousg instead?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/image-32DC3.png
+
+
+[04/02/2024 08:52] wanziskata
+The mint and redeem functions in `ousgInstantManager.sol` operate with BUIDL and USDC, it would be an issue if a user couldn't mint/redeem their tokens
+
+
+[04/02/2024 10:37] moeid3
+Created a pvt thread sir
+
+
+[04/02/2024 13:39] dimah7
+no gas awards? ☹️
+
+{Reactions}
+🥲 (3) 
+
+[04/02/2024 18:00] ivanfitro
+for what this lines are?
+```
+if (address(investorBasedRateLimiter) != address(0)) {
+      investorBasedRateLimiter.checkAndUpdateMintLimit(
+        msg.sender,
+        usdcAmountIn
+      );
+    }
+
+```
+
+
+[04/02/2024 21:45] kee_in
+The "investorBasedRateLimiter" is an optional contract to add per-investor limits
+
+
+[04/02/2024 21:45] kee_in
+We aren't yet sure we'll use this feature, so this != 0 check allows us to skip it for now
+
+
+[04/03/2024 07:43] 0xni8mare
+Hey, what is the SHV that the contest Readme refers to?
+
+
+[04/03/2024 08:54] volokinn
+It refers to a ETF - https://data.chain.link/feeds/ethereum/mainnet/shv-usd
+
+
+[04/03/2024 11:32] asui0944
+Is anyone having problem with submitting? I cant even login C4
+
+
+[04/03/2024 11:36] jvorex
+let me help you. haha jokes. try clearing cache
+
+{Reactions}
+👍 
+
+[04/03/2024 11:41] asui0944
+It works, thankyou
+
+
+[04/03/2024 16:46] guy_in0xnito
+I submitted one analysis report by mistake
+Is there a way to withdraw it didn't see any withdrawing option
+
+
+[04/03/2024 16:52] volokinn
+Go to your finding and scroll down to the bottom, you will see a button Withdraw finding
+
+
+[04/03/2024 16:56] guy_in0xnito
+There isn't any that' s the problem
+It only shows update issue
+
+
+[04/03/2024 17:41] jvorex
+dw about it
+
+
+[04/03/2024 19:59] moeid3
+Great job everybody
+
+
+[04/03/2024 20:02] C4
+**🚨 AUDIT ALERT**
+
+@🐺Wardens  The **Ondo Finance** audit is now closed! Huge thanks to everyone who participated 🔍, whether you submitted a finding or not.
+
+What's next: The sponsor team and judge will review the findings over the next couple of weeks. Keep an eye on #📢announcements for regular updates on how the audit is progressing through awarding 🤑🏆, judging 🧑‍⚖️ and reporting 📜. Feel free to ping a Contest-Admin if you have questions along the way!
+
+{Reactions}
+10_10 
+
+[04/03/2024 21:23] brivan
+@kaveyjoe your time has come. How many submissions?
+
+{Reactions}
+kek (7) 
+
+[04/03/2024 21:26] bigsam0831
+😂  i am not the only one waiting
+
+
+[04/03/2024 21:27] haxatron1
+2000
+
+{Reactions}
+😁 
+
+[04/03/2024 21:27] haxatron1
+Just kidding!
+
+
+[04/03/2024 21:28] haxatron1
+334
+
+{Reactions}
+✅ (7) 😇 
+
+[04/03/2024 21:28] brivan
+Please, no number like AiArena submissions again. Had bad experience there xdd
+
+{Reactions}
+😂 (2) 
+
+[04/04/2024 08:10] tigerfrake
+😂Lmao
+
+
+[04/16/2024 05:09] shubh0412
+https://tenor.com/view/soon-cat-peeking-gif-13051037
+
+{Embed}
+https://tenor.com/view/soon-cat-peeking-gif-13051037
+Code4rena - ARCHIVE-Q1-2024 - ondo-mar29 [1222667149802344569].txt_Files/soon-cat-FD4A2.png
+
+{Reactions}
+👀 (2) 
+
+[04/16/2024 06:25] kartik_giri_47538
+🤩
+
+
+[04/16/2024 06:38] brivan
+Today. Logo is already displaying on profile
+
+
+[04/16/2024 06:55] auditor_79099
+what is mean logo? who can explain about logo?
+
+
+[04/16/2024 07:54] yotov721
+On you profile page in C4 in the Helped Secure section the logo of the protocol is present before the results come out, but only (I think) if you're getting a reward
+
+{Reactions}
+💯 
+
+[04/16/2024 07:58] yotov721
+In Edit Profile you have to turn on the Display stats in profile option
+
+
+[04/16/2024 08:16] tigerfrake
+Also I think you have to be certified first to do it.
+
+{Reactions}
+4739_Skeletor 
+
+[04/16/2024 08:32] degenext
+how to get certified?
+
+
+[04/16/2024 09:03] tigerfrake
+https://discord.com/channels/810916927919620096/810931711609143326/1175411484612898846
+
+
+[04/16/2024 13:46] _paperparachute
+🤑 🎉  Awards for **Ondo Finance**:
+
+$6,595.10 USDC » @asui 
+$4,541.99 USDC » @Breeje 
+$3,177.07 USDC » @immeas 
+$3,092.70 USDC » @Arz 
+$3,036.83 USDC » @HChang26 
+$2,980.54 USDC » @Limbooo 
+$2,243.37 USDC » @Bigsam 
+$646.09 USDC » @carrotsmuggler 
+$563.06 USDC » @radev_sw 
+$554.78 USDC » @dvrkzy 
+$498.91 USDC » @0xCiphky 
+$498.91 USDC » 0xmystery  
+$178.39 USDC » @ZanyBonzy 
+$114.24 USDC » @b0g0 
+$114.24 USDC » @popeye 
+$91.68 USDC » @Krace 
+$72.43 USDC » @Shubham 
+$72.43 USDC » @Tychai0s 
+$72.43 USDC » @ast3ros 
+$72.43 USDC » @Kaden 
+$72.43 USDC » @kartik_giri_47538 
+$72.43 USDC » @ni8mare 
+$64.15 USDC » @0xDemon 
+$64.15 USDC » @SpicyMeatball 
+$64.15 USDC » @leegh 
+$64.15 USDC » @yotov721 
+$8.28 USDC » @0xAkira 
+$8.28 USDC » @0xGreyWolf 
+$8.28 USDC » @0xJaeger 
+$8.28 USDC » @0xMosh 
+$8.28 USDC » @0xabhay 
+$8.28 USDC » @0xlemon 
+$8.28 USDC » @0xweb3boy 
+$8.28 USDC » @Aamir 
+$8.28 USDC » @Abdessamed 
+$8.28 USDC » @CodeCipher 
+$8.28 USDC » DanielArmstrong 
+$8.28 USDC » DarkTower (@0xrex and @haxatron) 
+$8.28 USDC » @Dots 
+$8.28 USDC » EaglesSecurity (kane-goldmisth and julian_avantgarde) 
+$8.28 USDC » @Auditor 
+$8.28 USDC » @Honour 
+$8.28 USDC » @iceBear 
+$8.28 USDC » JC  
+$8.28 USDC » @K42 Ψ 
+$8.28 USDC » @MaslarovK 
+$8.28 USDC » @Omik 
+$8.28 USDC » @Kenzo 
+$8.28 USDC » @SAQ 
+$8.28 USDC » @Stormreckson⛈ 
+$8.28 USDC » @Tigerfrake 
+$8.28 USDC » @VAD37 
+$8.28 USDC » @Albahaca 
+$8.28 USDC » @Arnie 
+$8.28 USDC » bareli 
+$8.28 USDC » baz1ka  
+$8.28 USDC » @btk 
+$8.28 USDC » @caglankaan 
+$8.28 USDC » @cheatc0d3 
+$8.28 USDC » @edger 
+$8.28 USDC » @grearlake 
+$8.28 USDC » @igbinosuneric 
+$8.28 USDC » @jaydhales 
+$8.28 USDC » @m4ttm 
+$8.28 USDC » @NiSeR 
+$8.28 USDC » @nonn_ac 
+$8.28 USDC » @oualidpro 
+$8.28 USDC » @pfapostol 
+$8.28 USDC » @pkqs90 
+$8.28 USDC » @samuraii77 
+$8.28 USDC » @slvDev 
+$8.28 USDC » @zabihullahazadzoi
+
+🏁 Findings summary
+--------------------------------------—
+High risk findings: 1 unique (4 total)
+Med risk findings: 4 unique (25 total)
+QA reports: 64 (Best: immeas)
+
+Awards will be distributed on Polygon within the next week. Congratulations all!  💸 💸 💸
+
+*Note: If you participated in this audit and don’t see your name on this list, please wait until the report is published and the findings repo is made public to check on your submissions.*
+
+{Reactions}
+🔥 (9) 
+
+[04/16/2024 14:01] 0xdemonnn
+Congrats all 🎉 🎉 🎉
+
+
+[04/16/2024 14:02] saq_143
+46 warden won the 8.28 = 380.80 USDC
+
+
+[04/16/2024 14:08] saq_143
+Congrats everyone
+
+
+[04/16/2024 14:08] olanre_waju
+Congratulations 🎊 @Bigsam
+
+
+[04/16/2024 14:13] 0xpopeye
+@b0g0 x @popeye
+
+
+[04/16/2024 14:14] 0xb0g0
+💪
+
+
+[04/16/2024 14:16] bigsam0831
+Thanks boss 🫡
+
+{Reactions}
+hi5 
+
+[04/16/2024 14:41] pkqs90
+very interesting findings.. congrats to all!
+
+
+[04/16/2024 15:07] tychaios.
+Curious to see that unique, congrats everyone
+
+
+[04/16/2024 18:52] stockmart
+Started a thread.
+
+
+[04/17/2024 18:42] auditor_79099
+what is graphics?
+
+
+[04/20/2024 03:05] 0xtendency
+congrats @nonn_ac :hi5: 
+
+The first of many 💪
+
+
+[04/20/2024 03:08] nonn_ac
+@Tendency thanks ser
+
+{Reactions}
+🫡 
+
+[04/23/2024 09:45] bigsam0831
+has this reward been sent? @🦖 eric (ninek) | C4
+
+
+[04/23/2024 18:35] nine_k
+yes it has, looks like i neglected to post an announcement, sorry about that! i'll do that now 🙂
+
+
+[04/23/2024 18:58] 0xdemonnn
+Hi, have all the rewards been sent? I didn't get mine 🤔
+
+
+[04/23/2024 19:00] bigsam0831
+Same
+
+
+[04/23/2024 19:00] 0xpopeye
+I didn't get mine also
+
+
+[04/23/2024 19:07] yotov721
+Same
+
+
+[04/23/2024 19:07] codecipher9
+It was sent in USDC not the bridged USDC.E, you must add its address to your wallet to see the rewards.
+I already had the address setup so I noticed the payment.
+
+
+[04/23/2024 19:12] 0xdemonnn
+did you get yours? even in the polygon scan there were no transactions entered into my wallet
+
+
+[04/23/2024 19:14] bigsam0831
+same here. i just confirmed on polygonscan
+
+{Reactions}
+🤔 👍 
+
+[04/23/2024 19:15] liveactionllamac4
+Our team is looking into this. Thanks for your patience!
+
+{Reactions}
+✅ (4) 
+
+[04/23/2024 19:15] codecipher9
+My bad the onto rewards were indeed sent in usdc.e 3 days ago and I can see the tx
+Taiko and acala are the ones in usdc
+
+{Reactions}
+👍 
+
+[04/23/2024 19:17] 0xdemonnn
+Alright, just want to make sure. Thank you :thankyou:
+
+{Reactions}
+hi5 
+
+[04/23/2024 19:32] nine_k
+hey everyone, one of the distribution transactions the other day did get hung up and i missed it, my apologies! i just sent them through and confirmed 🙂 you should all be squared up now 🎉 but let me know if not
+
+
+[04/23/2024 19:33] nine_k
+appreciate you all 🙏
+
+{Reactions}
+thankyou (6) 🫡 (2) 
+
+[04/23/2024 19:35] yotov721
+I confirm
+
+{Reactions}
+👍 (2) 
+
+[04/23/2024 19:36] 0xdemonnn
+i got mine, thank you :hi5:
+
+{Reactions}
+👍 (2) 
+
+[04/23/2024 19:40] bigsam0831
+Confirmed 👍
+
+
+[04/23/2024 19:50] thebrittfactor
+Started a thread.
+
+
+[04/24/2024 02:10] 0x11singh99
+will the upcoming rewards come in Usdc from now for all contests ?
+
+
+[04/25/2024 16:04] kartik_giri_47538
+Didn't receive my reward.
+
+
+[04/25/2024 16:06] kartik_giri_47538
+sorry got in another token.
+
+
+[04/25/2024 18:49] thebrittfactor
+Most will be USDC. Sometimes we get a sponsor here and there that choses a different token, but generally we'll default to USDC, but offer the option for the other token presented.
+
+{Reactions}
+🫡 
+
+[05/03/2024 15:27] itsmetechjay
+ℹ️ This channel is pending archive.   As a result, any private threads will be permanently deleted on Friday, 10 May 2024.  Please make sure to grab anything you might need before then.
+
+
+==============================================================
+Exported 172 message(s)
+==============================================================
